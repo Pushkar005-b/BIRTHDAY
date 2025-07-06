@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe6e6, #ffccff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+
+    h1 {
+      color: #ff3399;
+      font-size: clamp(2rem, 8vw, 4rem);
+      animation: bounce 1.5s infinite;
+      text-shadow: 2px 2px 5px #ff99cc;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    p {
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      color: #660066;
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .balloons {
+      font-size: clamp(2rem, 10vw, 3rem);
+      animation: float 2s ease-in-out infinite;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Confetti styles */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #f00;
+      opacity: 0.7;
+      animation: confetti-fall 5s linear infinite;
+      z-index: 1000;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="balloons">🎈🎉🎂🎁🎈</div>
+  <h1>Happy Birthday, <span id="birthdayName">Alex</span>!</h1>
+  <p>Wishing you lots of love, laughter, and cake! 🎂</p>
+  <div class="balloons">🎈🎁🎊🎉🎈</div>
+
+  <script>
+    // Confetti generator
+    function createConfetti() {
+      const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(confetti);
+
+      // Remove confetti after animation
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+
+    // Create confetti every 100ms for 3 seconds
+    function burstConfetti() {
+      const interval = setInterval(createConfetti, 100);
+      setTimeout(() => clearInterval(interval), 3000);
+    }
+
+    // Trigger confetti on tap/click
+    document.body.addEventListener('click', burstConfetti);
+    document.body.addEventListener('touchstart', burstConfetti);
+
+    // Optional: Auto-trigger confetti on page load
+    window.addEventListener('load', () => {
+      setTimeout(burstConfetti, 1000);
+    });
+
+    // Change name dynamically (optional)
+    // document.getElementById('birthdayName').textContent = 'Sarah';
+  </script>
+</body>
+</html>
